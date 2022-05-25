@@ -1,0 +1,28 @@
+.loginContainer {
+    width: 90%;
+    height: 80vh;
+    margin-top: 5%;
+    margin-left: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 1vh;
+    border: 1px solid rgba(0,0,0,0.5);
+}
+
+.loginWallpaper {
+    width: 65%;
+    height: 80vh;
+}
+
+.loginInfoContainer {
+    width: 35%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    overflow: hidden;
+}

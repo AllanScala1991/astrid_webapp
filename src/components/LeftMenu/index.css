@@ -1,0 +1,25 @@
+.leftMenuContainer {
+    width: 4%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    overflow: hidden;
+    background-color: #1AAE9F;
+    padding-top: 5vh;
+}
+
+.icons {
+    background-color: white;
+    border-radius: 1vh;
+    width: 60%;
+    cursor: pointer;
+    transition: width 0.2s ease-in-out;
+    margin: 2vh auto;
+}
+
+.icons:hover {
+    width: 96%;
+    transition: width 0.2s ease-in-out;
+}

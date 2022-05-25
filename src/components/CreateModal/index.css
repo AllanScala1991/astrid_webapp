@@ -1,0 +1,77 @@
+.createModalContainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 999;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.createModal {
+    width: 40%;
+    height: 40vh;
+    background-color: rgb(240,240,240);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border-radius: 1vh;
+    border: none;
+}
+
+.createModalTitle {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 4vh;
+    font-weight: bold;
+    margin: 2vh auto;
+}
+
+.inputModalContainer {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: 1vh auto;
+}
+
+.labelModal {
+    display: inline-block;
+    width: 80%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.2vh;
+    color: rgba(0,0,0,0.6);
+    font-weight: bold;
+}
+
+.inputModalComponent {
+    width: 80%;
+    height: 5.5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    overflow: hidden;
+    border: 1.5px solid rgba(0,0,0,0.3);
+    border-radius: 0.5vh;
+    background-color: white;
+
+}
+
+.inputModal {
+    width: 95%;
+    height: 5.5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.3vh;
+    margin-left: 1vh;
+    border: none;
+    outline: none;
+}
+
+.iconModal {
+    margin-left:2vh;
+}

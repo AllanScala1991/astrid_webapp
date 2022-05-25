@@ -1,0 +1,26 @@
+.searchInput {
+    width: 80%;
+    height: 5.5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    overflow: hidden;
+    border: 1.5px solid rgba(0,0,0,0.3);
+    border-radius: 0.5vh;
+    background-color: white;
+}
+
+.searchInput input {
+    width: 95%;
+    height: 5.5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.3vh;
+    margin-left: 1vh;
+    border: none;
+    outline: none;
+}
+
+.searchInput .icon {
+    margin-left:1vh;
+}

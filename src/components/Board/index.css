@@ -1,0 +1,30 @@
+.boardBox {
+    width: 18%;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 1vh;
+    margin: 2vh 2vh;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 3vh;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.boardBox:hover {
+    box-shadow: 10px 10px 10px #054842;
+    transition: all 0.5s ease-in-out;
+}
+
+.boardTitle {
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,13 @@
+.createUserContainer {
+    width: 70%;
+    height: 80vh;
+    margin-top: 5%;
+    margin-left: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    background-color: white;
+    border-radius: 1vh;
+    border: 1px solid rgba(0,0,0,0.5);
+}

@@ -1,0 +1,23 @@
+.addBoardContainer {
+    width: 18%;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 1vh;
+    margin: 2vh 2vh;
+    cursor: pointer;
+    border: 0.3vh solid #1AAE9F;
+    background-color: transparent;
+    color: #1AAE9F;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.addBoardContainer:hover {
+    background-color: #1AAE9F;
+    color: white;
+    transition: all 0.5s ease-in-out;
+}

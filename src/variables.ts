@@ -1,3 +1,3 @@
 export const ENV = {
-    BASE_URL: "https://stellar-fox-115bf4.netfly.app"
+    BASE_URL: "https://astrid-backend-dev.herokuapp.com"
 }

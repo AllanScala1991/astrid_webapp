@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { CreateModal } from '../../components/CreateModal'
 import { CreateTaskModal } from '../../components/CreateTaskModal'
 import { LeftMenu } from '../../components/LeftMenu'
+import { Loading } from '../../components/Loading'
 import { MessageModal } from '../../components/MessageModal'
 import { TaskModal } from '../../components/TaskModal'
 import { TaskPlan } from '../../components/TaskPlan'
@@ -33,7 +34,6 @@ export function Stage() {
         stages: [],
         currentStage: ""
     })
-    const [totalTask, setTotalTask] = useState(0)
     const [visibleTaskInfo, setVisibleTaskInfo] = useState(false)
     const [showMessage, setShowMessage] = useState(false)
     const [message, setMessage] = useState({
@@ -42,8 +42,11 @@ export function Stage() {
         description: "",
         method: () => {}
     })
+    const [isLoading, setIsLoading] = useState(false)
 
     const createStage = async (name: string) => {        
+        setIsLoading(true)
+
         const token = window.localStorage.getItem('token')
 
         setCreateVisible(false)
@@ -59,6 +62,8 @@ export function Stage() {
                 boardId: boardId
             }
         })
+
+        setIsLoading(false)
 
         setShowMessage(true)
 
@@ -82,6 +87,8 @@ export function Stage() {
     }
 
     const deleteStage = async (stageId: string) => {
+        setIsLoading(true)
+
         const token = window.localStorage.getItem("token")
 
         await axios({
@@ -101,6 +108,8 @@ export function Stage() {
                 "Authorization": `Bearer ${token}`
             }
         })
+
+        setIsLoading(false)
 
         setShowMessage(true)
 
@@ -127,6 +136,8 @@ export function Stage() {
     }
 
     const deleteBoard = async () => {
+        setIsLoading(true)
+
         const token = window.localStorage.getItem("token")
 
         const stages = await axios({
@@ -151,10 +162,14 @@ export function Stage() {
             }
         })
 
+        setIsLoading(false)
+
         return window.location.href = "/board"
     }
 
     const createNewTask = async (stageId: string) => {
+        setIsLoading(true)
+
         const token = window.localStorage.getItem("token")
 
         const newTaskCreate = await axios({
@@ -170,6 +185,8 @@ export function Stage() {
                 urgency: taskPriority
             }
         })
+
+        setIsLoading(false)
 
         setShowMessage(true)
 
@@ -196,6 +213,8 @@ export function Stage() {
     }
 
     const deleteTask = async (taskId: string) => {
+        setIsLoading(true)
+
         const token = window.localStorage.getItem("token")
 
         const taskDelete = await axios({
@@ -205,6 +224,8 @@ export function Stage() {
                 "Authorization": `Bearer ${token}`
             }
         })
+
+        setIsLoading(false)
 
         setShowMessage(true)
 
@@ -228,6 +249,8 @@ export function Stage() {
     }
 
     const updateTask = async (taskId: string) => {
+        setIsLoading(true)
+
         const token = window.localStorage.getItem("token")
 
         const updateTaskCreate = await axios({
@@ -245,7 +268,9 @@ export function Stage() {
             }
         })
 
-       setShowMessage(true)
+        setIsLoading(false)
+
+        setShowMessage(true)
 
         updateTaskCreate.data.status ?
             setMessage({
@@ -270,9 +295,11 @@ export function Stage() {
         mountStages()
     }
 
-    const mountStages = async () => {      
+    const mountStages = async () => {     
         const token = window.localStorage.getItem("token")
         if(token != null || boardId != null) {
+            setIsLoading(true) 
+
             const allStages = await axios({
                 method: "get",
                 url: `${ENV.BASE_URL}/find/stage/${boardId}`,
@@ -292,6 +319,8 @@ export function Stage() {
                 stage.tasks = tasks.data.data
                 stage.tasksTotal = `${tasks.data.data.length}`
             }
+            
+            setIsLoading(false)
 
             setStages(allStages.data.data)   
             return
@@ -299,6 +328,8 @@ export function Stage() {
     }
 
     const openTask = async (task: any) => {
+        setIsLoading(true)
+
         const token = window.localStorage.getItem("token")
 
         const allStages = await axios({
@@ -314,6 +345,8 @@ export function Stage() {
         for(let stage of allStages.data.data) {
             stagesNames.push(stage)
         }
+
+        setIsLoading(false)
 
         setTaskAllInfo({
             id: task.id,
@@ -331,7 +364,11 @@ export function Stage() {
     }, [])
     
     return (
-        <div className="boardContainer">
+        <div className="boardContainer">    
+            {
+                isLoading ? <Loading /> : null
+            }
+
             {
                 createVisible ? 
                     <CreateModal 

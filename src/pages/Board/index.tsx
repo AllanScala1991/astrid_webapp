@@ -9,6 +9,7 @@ import "./index.css"
 import axios from "axios"
 import { ENV } from "../../variables"
 import { MessageModal } from "../../components/MessageModal"
+import { Loading } from "../../components/Loading"
 
 export function BoardPage() {
     const [createBoard, setCreateBoard] = useState(false)
@@ -23,9 +24,12 @@ export function BoardPage() {
         method: () => {}
     })
     const [searchValue, setSearchValue] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
     async function createNewBoard(name: string) {
         try {
+            setIsLoading(true)
+
             const userId = window.localStorage.getItem("userId")
             const token = window.localStorage.getItem("token")
 
@@ -40,6 +44,8 @@ export function BoardPage() {
                     userId: userId 
                 }
             })
+
+            setIsLoading(false)
 
             setShowMessage(true)
             setCreateBoard(false)
@@ -93,6 +99,8 @@ export function BoardPage() {
 
     useEffect(() => {
         try {
+            setIsLoading(true)
+
             const fetchData = async () => {
                 const userId = window.localStorage.getItem("userId")
                 const token = window.localStorage.getItem("token")
@@ -103,6 +111,8 @@ export function BoardPage() {
                         'Authorization': `Bearer ${token}`
                     }
                 })
+
+                setIsLoading(false)
 
                 authenticated(getBoards)
                 setBoardUpdate(false)
@@ -118,6 +128,8 @@ export function BoardPage() {
 
     useEffect(() => {
         try {
+            setIsLoading(true)
+
             const userId = window.localStorage.getItem("userId")
             const token = window.localStorage.getItem("token")
 
@@ -129,6 +141,8 @@ export function BoardPage() {
                         'Authorization': `Bearer ${token}`
                     }
                 })
+
+                setIsLoading(false)
 
                 authenticated(search)
                 setBoards([])
@@ -150,6 +164,10 @@ export function BoardPage() {
 
     return (
         <div className="boardContainer">
+            {
+                isLoading ? <Loading /> : null
+            }
+
             {
                 createBoard ?
                     <CreateModal 

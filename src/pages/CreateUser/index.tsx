@@ -69,7 +69,7 @@ export function CreateUser() {
             title: "Sucesso !!",
             titleBackgroundColor: "#1AAE9F",
             description: createUser.data.message,
-            method: () => {setShowMessage(false)}
+            method: () => {setShowMessage(false); redirectLoginPage();}
         })
 
         setShowMessage(true)

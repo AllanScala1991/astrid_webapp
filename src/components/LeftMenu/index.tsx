@@ -7,8 +7,12 @@ export function LeftMenu() {
     }
 
     function logout() {
-        window.localStorage.clear()
-        redirectPage("/")
+        let isLogout = confirm("Deseja realmente sair do sistema ?")
+        if(isLogout) {
+            window.localStorage.clear()
+            redirectPage("/")
+        }
+        
     }
     return (
         <div className="leftMenuContainer">

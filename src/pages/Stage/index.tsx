@@ -190,26 +190,27 @@ export function Stage() {
 
         setShowMessage(true)
 
-        newTaskCreate.data.status ?
+        if(newTaskCreate.data.status) {
             setMessage({
                 title: "Sucesso !!",
                 titleBackgroundColor: "#1AAE9F",
                 description: newTaskCreate.data.message,
                 method: () => {setShowMessage(false)}
             })
-        :
+
+            setCreateTaskVisible(false)
+            setTaskTitle("")
+            setTaskDescription("")
+            setTaskPriority("low")
+            mountStages()
+        } else {
             setMessage({
                 title: "Ops !!",
                 titleBackgroundColor: "#D3455B",
                 description: newTaskCreate.data.message,
-                method: () => {setShowMessage(false)}
+                method: () => {setShowMessage(false); setCreateTaskVisible(true)}
             })
-        
-        setTaskTitle("")
-        setTaskDescription("")
-        setTaskPriority("low")
-        setCreateTaskVisible(false)
-        mountStages()
+        }
     }
 
     const deleteTask = async (taskId: string) => {

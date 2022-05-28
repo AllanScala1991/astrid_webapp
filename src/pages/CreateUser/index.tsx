@@ -8,6 +8,7 @@ import "./index.css"
 import axios from "axios"
 import { ENV } from "../../variables"
 import { MessageModal } from "../../components/MessageModal"
+import { Loading } from "../../components/Loading"
 
 export function CreateUser() {
     const [name, setName] = useState("")
@@ -20,6 +21,7 @@ export function CreateUser() {
         description: "",
         method: () => {}
     })
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleNameValue = (name: string) => {
         setName(name)
@@ -38,11 +40,15 @@ export function CreateUser() {
     }
 
     const registerUser = async () => {
+        setIsLoading(true)
+
         const createUser = await axios.post(`${ENV.BASE_URL}/user/create`, {
             name: name,
             email: email,
             password: password
         })
+
+        setIsLoading(false)
 
         if(!createUser.data.status) {
             setMessage({
@@ -80,6 +86,10 @@ export function CreateUser() {
 
     return (
         <div className="createUserContainer">
+            {
+                isLoading ? <Loading /> : null
+            }
+
             {
                 showMessage ?
                     <MessageModal 

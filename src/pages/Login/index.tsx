@@ -9,6 +9,7 @@ import { Link } from "../../components/Link"
 import { ENV } from "../../variables"
 import { useEffect, useState } from "react"
 import { MessageModal } from "../../components/MessageModal"
+import { Loading } from "../../components/Loading"
 
 export function Login() {
     const [email, setEmail] = useState("")
@@ -20,13 +21,18 @@ export function Login() {
         description: "",
         method: () => {}
     })
+    const [isLoading, setIsLoading] = useState(false)
 
     const UserLogin = async () => {
         try {
+            setIsLoading(true)
+
             const login = await axios.post(`${ENV.BASE_URL}/login`, {
                 email: email,
                 password: password
             })
+            
+            setIsLoading(false)
 
             if(!login.data.status) {
                 setShowMessage(true)
@@ -80,6 +86,9 @@ export function Login() {
 
     return (
         <div className="loginContainer">
+            {
+                isLoading ? <Loading /> : null
+            }
 
             {
                 showMessage ?

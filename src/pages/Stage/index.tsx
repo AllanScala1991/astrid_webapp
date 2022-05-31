@@ -419,7 +419,10 @@ export function Stage() {
                         stage={taskAllInfo.stages}
                         currentStage={taskAllInfo.currentStage}
                         saveModifications={() => {updateTask(taskAllInfo.id)}}
-                        deleteTask={() => {deleteTask(taskAllInfo.id)}}
+                        deleteTask={() => {
+                            const isDeleteTask = confirm("Deseja realmente excluir a tarefa ?")
+                            if(isDeleteTask) deleteTask(taskAllInfo.id)
+                        }}
                         closeModal={() => setVisibleTaskInfo(false)}
                         titleOnChange={(title: string) => setTaskTitle(title)}
                         descriptionOnChange={(description: string) => setTaskDescription(description)}
@@ -447,7 +450,10 @@ export function Stage() {
                         cursor={"pointer"} 
                         weight="fill"
                         className='stageDelete'
-                        onClick={() => deleteBoard()}
+                        onClick={() => {
+                            const isDelete = confirm("Deseja realmente excluir o board ?")
+                            if(isDelete) deleteBoard()
+                        }}
                     />
 
                 </div>
@@ -462,7 +468,10 @@ export function Stage() {
                                         taskTotal={stage.tasksTotal}
                                         tasks={stage.tasks}
                                         stageId={stage.id}
-                                        deleteClick={() => deleteStage(stage.id)}
+                                        deleteClick={() => {
+                                            const isDeleteStage = confirm("Deseja realmente excluir o quadro de tarefas ?")
+                                            if(isDeleteStage)deleteStage(stage.id)
+                                        }}
                                         createTaskClick={() => {setCreateTaskVisible(true); setStageId(stage.id)}}
                                         openTask={(task) => openTask(task)}
                                         key= {stage.id}

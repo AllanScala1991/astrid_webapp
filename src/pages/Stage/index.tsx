@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Trash } from 'phosphor-react'
+import { Pencil, Trash } from 'phosphor-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { CreateModal } from '../../components/CreateModal'
@@ -43,6 +43,8 @@ export function Stage() {
         method: () => {}
     })
     const [isLoading, setIsLoading] = useState(false)
+    const [updateBoardModal, setUpdateBoardModal] = useState(false)
+    const [newBoardName, setNewBoardName] = useState("")
 
     const createStage = async (name: string) => {        
         setIsLoading(true)
@@ -360,6 +362,39 @@ export function Stage() {
         setVisibleTaskInfo(true)
     }
 
+    const boardNameUpdate = async (newName: string) => {
+        setIsLoading(true)
+
+        const token = window.localStorage.getItem("token")
+
+        const isUpdateBoard = await axios({
+            method: 'put',
+            url: `${ENV.BASE_URL}/update/board`,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            data: {
+                boardId: boardId,
+                name: newName
+            }
+        })
+
+        setIsLoading(false)
+
+        if(isUpdateBoard.data.status) {
+            return window.location.href = `/stage/${boardId}/${newName}`
+        }else {
+            setMessage({
+                title: "Ops !!",
+                titleBackgroundColor: "#D3455B",
+                description: isUpdateBoard.data.message,
+                method: () => {setShowMessage(false)}
+            })
+
+            setShowMessage(true)
+        }
+    }
+
     useEffect(() => {
         mountStages()
     }, [])
@@ -371,11 +406,27 @@ export function Stage() {
             }
 
             {
+                updateBoardModal ? 
+                    <CreateModal 
+                        title="Alterar Nome do Board"
+                        inputTitle="Board"
+                        inputPlaceholder="Digite o novo nome do board"
+                        buttonText='Atualizar'
+                        inputNameOnChange={(name: string) => setNewBoardName(name)}
+                        createMethod={() => {boardNameUpdate(newBoardName)}}
+                        closeModalMethod={() => {setUpdateBoardModal(false)}}
+                    />
+                : 
+                    null
+            }
+
+            {
                 createVisible ? 
                     <CreateModal 
                         title='Criar Novo Quadro'
                         inputTitle='Nome'
                         inputPlaceholder='Digite o nome do quadro'
+                        buttonText='Criar'
                         closeModalMethod={() => {setCreateVisible(false)}}
                         createMethod={() => {createStage(stageName)}}
                         inputNameOnChange={(name: string) => {setStageName(name)}}
@@ -442,6 +493,15 @@ export function Stage() {
                         text={boardName as string}
                         fontSize={4}
                         color={"rgb(50,50,50)"}
+                    />
+                    
+                    <Pencil 
+                        size={22} 
+                        color="#1AAE9F" 
+                        cursor={"pointer"} 
+                        weight="fill"
+                        className='stageDelete'
+                        onClick={() => setUpdateBoardModal(true)}
                     />
 
                     <Trash 

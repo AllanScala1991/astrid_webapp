@@ -174,6 +174,7 @@ export function BoardPage() {
                         title="Criar Novo Board"
                         inputTitle="Board"
                         inputPlaceholder="Digite o nome do board"
+                        buttonText="Criar"
                         inputNameOnChange={(name: string) => setBoardName(name)}
                         createMethod={() => {createNewBoard(boardName)}}
                         closeModalMethod={() => {setCreateBoard(false)}}

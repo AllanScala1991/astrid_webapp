@@ -55,7 +55,7 @@
 }
 
 .deleteButtonContainer {
-    width: 15%;
+    width: 20%;
     height: 5vh;
     display: flex;
     justify-content: center;
@@ -63,11 +63,12 @@
 }
 
 .titlePlan {
-    width: 70%;
+    width: 65%;
     height: 5vh;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
+    padding-left: 3vh;
 }
 
 .totalPlan {
@@ -115,4 +116,8 @@
 
 .tasks:hover {
     border: 2px solid #1AAE9F;
+}
+
+.taskPlanIcons {
+    margin-left: 1vh;
 }

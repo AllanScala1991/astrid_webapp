@@ -45,6 +45,8 @@ export function Stage() {
     const [isLoading, setIsLoading] = useState(false)
     const [updateBoardModal, setUpdateBoardModal] = useState(false)
     const [newBoardName, setNewBoardName] = useState("")
+    const [updateStageModal, setUpdateStageModal] = useState({status: false, stageId: ""})
+    const [newStageName, setNewStageName] = useState("")
 
     const createStage = async (name: string) => {        
         setIsLoading(true)
@@ -310,7 +312,7 @@ export function Stage() {
                     'Authorization': `Bearer ${token}`
                 }
             })
-
+            
             for(let stage of allStages.data.data) {
                 const tasks = await axios({
                     method: "get",
@@ -395,6 +397,44 @@ export function Stage() {
         }
     }
 
+    const stageNameUpdate = async (newName: string, stageId: string) => {
+        setIsLoading(true)
+
+        const token = window.localStorage.getItem("token")
+
+        const isUpdateStage = await axios({
+            method: 'put',
+            url: `${ENV.BASE_URL}/update/stage`,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            data: {
+                stageId: stageId,
+                name: newName
+            }
+        })
+
+        setIsLoading(false)
+
+        if(isUpdateStage.data.status) {
+            setIsLoading(true)
+            await mountStages()
+            setIsLoading(false)
+            setUpdateStageModal({status: false, stageId: ""})
+            setNewStageName("")
+        }else {
+            setUpdateStageModal({status: false, stageId: ""})
+            setMessage({
+                title: "Ops !!",
+                titleBackgroundColor: "#D3455B",
+                description: isUpdateStage.data.message,
+                method: () => {setShowMessage(false)}
+            })
+
+            setShowMessage(true)
+        }
+    }
+
     useEffect(() => {
         mountStages()
     }, [])
@@ -415,6 +455,21 @@ export function Stage() {
                         inputNameOnChange={(name: string) => setNewBoardName(name)}
                         createMethod={() => {boardNameUpdate(newBoardName)}}
                         closeModalMethod={() => {setUpdateBoardModal(false)}}
+                    />
+                : 
+                    null
+            }
+
+            {
+                updateStageModal.status ? 
+                    <CreateModal 
+                        title="Alterar Nome do Quadro"
+                        inputTitle="Quadro"
+                        inputPlaceholder="Digite o novo nome do quadro"
+                        buttonText='Atualizar'
+                        inputNameOnChange={(name: string) => setNewStageName(name)}
+                        createMethod={() => {stageNameUpdate(newStageName, updateStageModal.stageId)}}
+                        closeModalMethod={() => {setUpdateStageModal({status: false, stageId: ""})}}
                     />
                 : 
                     null
@@ -528,6 +583,7 @@ export function Stage() {
                                         taskTotal={stage.tasksTotal}
                                         tasks={stage.tasks}
                                         stageId={stage.id}
+                                        editTask={(stageId: string) => {setUpdateStageModal({status: true, stageId: stageId})}}
                                         deleteClick={() => {
                                             const isDeleteStage = confirm("Deseja realmente excluir o quadro de tarefas ?")
                                             if(isDeleteStage)deleteStage(stage.id)

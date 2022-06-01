@@ -1,4 +1,4 @@
-import { Trash } from 'phosphor-react'
+import { Pencil, Trash } from 'phosphor-react'
 import './index.css'
 
 interface TaskPlanProps {
@@ -9,6 +9,7 @@ interface TaskPlanProps {
     createTaskClick: any
     stageId: any
     openTask: (task: any) => any
+    editTask: (stageId: any) => any
 }
 
 interface Tasks {
@@ -21,18 +22,28 @@ export function TaskPlan(props: TaskPlanProps) {
     return (
         <div className="plan">
             <div className="planHeader">
+                <div className="titlePlan">
+                    <span className="title">{props.title}</span>
+                </div>
+
                 <div className="deleteButtonContainer">
+                    <Pencil 
+                        size={22} 
+                        color="white" 
+                        cursor={"pointer"} 
+                        weight="fill"
+                        className='taskPlanIcons'
+                        onClick={() => props.editTask(props.stageId)}
+                    />
+
                     <Trash 
                         size={22} 
                         color="#D3455B" 
                         cursor={"pointer"} 
                         weight="fill"
+                        className='taskPlanIcons'
                         onClick={() => props.deleteClick()}
                     />
-                </div>
-
-                <div className="titlePlan">
-                    <span className="title">{props.title}</span>
                 </div>
 
                 <div className="totalPlan">

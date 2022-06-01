@@ -9,6 +9,7 @@ interface CreateModalProps {
     inputNameOnChange: any
     createMethod: any
     closeModalMethod: any
+    buttonText: string
 }
 
 export function CreateModal(props: CreateModalProps) {
@@ -31,7 +32,7 @@ export function CreateModal(props: CreateModalProps) {
                 </div>
 
                 <Button 
-                    buttonText="Criar" 
+                    buttonText={props.buttonText} 
                     buttonTextColor="white"
                     buttonBackground="#1AAE9F"
                     buttonWidth={82}

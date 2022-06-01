@@ -13,13 +13,25 @@
 .icons {
     background-color: white;
     border-radius: 1vh;
-    width: 60%;
+    width: 90%;
     cursor: pointer;
-    transition: width 0.2s ease-in-out;
+    box-shadow: none;
+    transition: box-shadow 0.2s ease-in-out;
     margin: 2vh auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.5vh;
+    overflow: hidden;
+    color: #147b71;
+    font-weight: bold;
+    padding-bottom: 0.3vh;
 }
 
 .icons:hover {
-    width: 96%;
-    transition: width 0.2s ease-in-out;
+    box-shadow: 5px 5px 2px black;
+    width: 92%;
+    transition: all 0.2s ease-in-out;
 }

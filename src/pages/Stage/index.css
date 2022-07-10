@@ -41,8 +41,8 @@
 }
 
 .AddPlanButton {
-    width: 20%;
-    height: 5vh;
+    min-width: 20%;
+    min-height: 5vh;
     border: none;
     outline: none;
     color: white;

@@ -46,7 +46,6 @@ export function BoardPage() {
             })
 
             setIsLoading(false)
-
             setShowMessage(true)
             setCreateBoard(false)
 
@@ -55,18 +54,15 @@ export function BoardPage() {
                     title: "Sucesso !!",
                     titleBackgroundColor: "#1AAE9F",
                     description: create.data.message,
-                    method: () => {setShowMessage(false)}
+                    method: () => {setBoardName(""); setBoardUpdate(true); setShowMessage(false);}
                 })
             :
                 setMessage({
                     title: "Ops !!",
                     titleBackgroundColor: "#D3455B",
                     description: create.data.message,
-                    method: () => {setShowMessage(false)}
+                    method: () => {setShowMessage(false);}
                 })
-            
-            setBoardName("")
-            setBoardUpdate(true)
 
         } catch (error) {
             setMessage({
@@ -100,7 +96,6 @@ export function BoardPage() {
     useEffect(() => {
         try {
             setIsLoading(true)
-
             const fetchData = async () => {
                 const userId = window.localStorage.getItem("userId")
                 const token = window.localStorage.getItem("token")
@@ -111,9 +106,8 @@ export function BoardPage() {
                         'Authorization': `Bearer ${token}`
                     }
                 })
-
+            
                 setIsLoading(false)
-
                 authenticated(getBoards)
                 setBoardUpdate(false)
                 setBoards(getBoards.data.data)

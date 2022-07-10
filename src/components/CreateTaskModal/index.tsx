@@ -21,6 +21,7 @@ export function CreateTaskModal(props: CreateTaskModalProps) {
                     <div className="inputNameComponent">
                         <AddressBook size={26} className="iconName"/>
                         <input 
+                            maxLength={28}
                             type="text" 
                             className="inputName" 
                             placeholder="Digite um titulo para sua tarefa"

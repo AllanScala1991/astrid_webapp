@@ -76,7 +76,7 @@ export function Stage() {
                 title: "Sucesso !!",
                 titleBackgroundColor: "#1AAE9F",
                 description: boardCreate.data.message,
-                method: () => {setShowMessage(false)}
+                method: () => {setStageName(""); mountStages(); setShowMessage(false);}
             })
         :
             setMessage({
@@ -85,9 +85,6 @@ export function Stage() {
                 description: boardCreate.data.message,
                 method: () => {setShowMessage(false)}
             })
-
-        setStageName("")
-        mountStages()
     }
 
     const deleteStage = async (stageId: string) => {
@@ -132,11 +129,8 @@ export function Stage() {
             title: "Sucesso !!",
             titleBackgroundColor: "#1AAE9F",
             description: stageDelete.data.message,
-            method: () => {setShowMessage(false)}
+            method: () => {setStageName(""); mountStages(); setShowMessage(false)}
         })
-
-        setStageName("")
-        mountStages()
     }
 
     const deleteBoard = async () => {
@@ -199,14 +193,16 @@ export function Stage() {
                 title: "Sucesso !!",
                 titleBackgroundColor: "#1AAE9F",
                 description: newTaskCreate.data.message,
-                method: () => {setShowMessage(false)}
+                method: () => {
+                    setCreateTaskVisible(false)
+                    setTaskTitle("")
+                    setTaskDescription("")
+                    setTaskPriority("low")
+                    mountStages()
+                    setShowMessage(false)
+                }
             })
-
-            setCreateTaskVisible(false)
-            setTaskTitle("")
-            setTaskDescription("")
-            setTaskPriority("low")
-            mountStages()
+            
         } else {
             setMessage({
                 title: "Ops !!",
@@ -239,7 +235,11 @@ export function Stage() {
                 title: "Sucesso !!",
                 titleBackgroundColor: "#1AAE9F",
                 description: taskDelete.data.message,
-                method: () => {setShowMessage(false)}
+                method: () => {
+                    setVisibleTaskInfo(false)
+                    mountStages()
+                    setShowMessage(false)
+                }
             })
         :
             setMessage({
@@ -248,9 +248,6 @@ export function Stage() {
                 description: taskDelete.data.message,
                 method: () => {setShowMessage(false)}
             })
-
-        setVisibleTaskInfo(false)
-        mountStages()
     }
 
     const updateTask = async (taskId: string) => {
@@ -282,7 +279,15 @@ export function Stage() {
                 title: "Sucesso !!",
                 titleBackgroundColor: "#1AAE9F",
                 description: updateTaskCreate.data.message,
-                method: () => {setShowMessage(false)}
+                method: () => {
+                    setTaskTitle("")
+                    setTaskDescription("")
+                    setTaskPriority("")
+                    setTaskCurrentStage("")
+                    setVisibleTaskInfo(false)
+                    mountStages()
+                    setShowMessage(false)
+                }
             })
         :
             setMessage({
@@ -291,13 +296,6 @@ export function Stage() {
                 description: updateTaskCreate.data.message,
                 method: () => {setShowMessage(false)}
             }) 
-        
-        setTaskTitle("")
-        setTaskDescription("")
-        setTaskPriority("")
-        setTaskCurrentStage("")
-        setVisibleTaskInfo(false)
-        mountStages()
     }
 
     const mountStages = async () => {     
